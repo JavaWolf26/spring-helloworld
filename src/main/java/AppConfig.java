@@ -4,11 +4,19 @@ import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class AppConfig {
- 
-    @Bean(name="helloworld")
+    @Scope("singleton")
+    @Bean(name = "hello_world", destroyMethod = "doMyDestroy")
     public HelloWorld getHelloWorld() {
         HelloWorld helloWorld = new HelloWorld();
         helloWorld.setMessage("Hello World!");
         return helloWorld;
+    }
+
+    @Scope("prototype")
+    @Bean(name = "bald_cat", initMethod = "doMyInit", destroyMethod = "doMyDestroy")
+    public Cat getCat() {
+        Cat cat = new Cat();
+        cat.setName("Boss");
+        return cat;
     }
 }
